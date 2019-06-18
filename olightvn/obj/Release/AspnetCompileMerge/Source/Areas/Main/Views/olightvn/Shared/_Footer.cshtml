@@ -1,0 +1,98 @@
+﻿<footer id="footer" class="footer" ng-controller="footerController">
+    <div class="widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title">Liên hệ với chúng tôi</h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+                            <li class="widget-address"><i class="fa fa-map-marker"></i><span>{{data.Address}}</span></li>
+                            <li><i class="fa fa-phone"></i><span>{{data.Phone}}</span></li>
+                            <li ng-hide="data.Fax == '-' || data.Fax == '' "><i class="fa fa-fax"></i><span>{{data.Fax}}</span></li>
+                            <li><i class="fa fa-envelope"></i><span>{{data.Email}}</span></li>
+                            <li><i class="fa fa-facebook"></i>
+                                <a ng-href="{{data.Facebook}}">
+                                    {{data.Facebook}}
+                                </a>
+                            </li>
+                        </ul> <!-- End .widget-menu -->
+                    </div> <!-- End .widget-item -->
+                </div>
+                <div class="col-md-2 col-sm-6 autosize" ng-init="getMenu()">
+                    <div class="widget-item">
+                        <h4 class="widget-title">Thông tin</h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+                            <li ng-repeat="sitemap in sitemaps"><a ng-href="/{{sitemap.URL}}">{{sitemap.Name}}</a></li>
+                        </ul> <!-- End .widget-menu -->
+                    </div> <!-- End .widget-item -->
+                </div>
+                <div class="col-md-2 col-sm-6 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title">HỖ TRỢ </h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+
+                            <li><a href="/#/huong-dan-mua-hang" title="Hướng dẫn mua hàng">Hướng dẫn mua hàng</a></li>
+
+
+                            <li><a href="/#/tai-khoan-giao-dich" title="Tài khoản giao dịch">Tài khoản giao dịch</a></li>
+
+
+                            <li><a href="/#/chinh-sach-van-chuyen" title="Chính sách vận chuyển">Chính sách vận chuyển</a></li>
+
+
+                        </ul> <!-- End .widget-menu -->
+                    </div> <!-- End .widget-item -->
+                </div>
+
+                <div class="col-md-4 col-sm-12 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title"></h4> <!-- End .widget-title -->
+                        <div id="fb-root"></div>
+                        @*<script>
+                            (function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0];
+                                if (d.getElementById(id)) return;
+                                js = d.createElement(s); js.id = id;
+                                js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.9";
+                                fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));</script>*@
+                        <script>
+                    window.fbAsyncInit = function () {
+                        FB.init({
+                            appId: '@GeneralFuncs.GetConfigValueByKey("fb_app_id")',// '721566404677863',
+                            status: true,
+                            cookie: true,
+                            xfbml: true,
+                            version: '@GeneralFuncs.GetConfigValueByKey("fb_app_version")'
+                        });
+                    };
+
+                    // Load the SDK Asynchronously
+                    (function (d) {
+                        var js, id = 'facebook-jssdk';
+                        if (d.getElementById(id)) { return; }
+                        js = d.createElement('script');
+                        js.id = id;
+                        js.async = true;
+                        js.src = document.location.protocol + "//connect.facebook.net/en_US/all.js";
+                        d.getElementsByTagName('head')[0].appendChild(js);
+                    }(document));
+
+                        </script>
+                        <div class="fb-page" data-href="https://www.facebook.com/OmegalightVn" data-tabs="timeline" data-width="340px" data-height="230px" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/OmegalightVn" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/OmegalightVn">Omega Ligth VN</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End .widget -->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <span>© Bản quyền thuộc về olightvn | Design by levan0106</span>
+        </div>
+    </div>
+</footer>

@@ -1,0 +1,27 @@
+﻿<div class="content-footer" ng-controller="footerController">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="content">
+                    {{data.Name}}<br />
+                    <b>Địa chỉ:</b> {{data.Address}}<br />
+                    <b>HotLine:</b> {{data.Phone}} <span ng-hide="data.Fax == '-' || data.Fax == '' "> - <b>Fax:</b> {{data.Fax}}</span> <br />
+                    <b>Email:</b> {{data.Email}} <br />
+                    <a href="/#/contact/1/lien_he">
+                        <img src="/content/images/icon-gmail.png" class="icon-social" />
+                    </a>
+                    <a ng-href="{{data.Facebook}}">
+                        <img src="/content/images/icon-facebook.png" class="icon-social" alt="{{data.Facebook}}" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="wrapper">
+        <div class="text-right">
+            Copyright 2017 | levan0106
+        </div>
+    </div>
+</div>

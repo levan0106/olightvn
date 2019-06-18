@@ -1,0 +1,9 @@
+﻿
+<div class="search-panel">
+    <div class="search-form collapse" id="@Model">
+        <div class="search-container" ng-controller="searchController">
+            <input type="text" ng-model="value" class="form-control search" placeholder="Nhập từ cần tìm" onkeypress="return onKeyPress(event, 'btnSearch')" />
+            <a id="btnSearch" ng-click="doSearch();" class="btn-search"><span class="glyphicon glyphicon-search"></span></a>
+        </div>
+    </div>
+</div>

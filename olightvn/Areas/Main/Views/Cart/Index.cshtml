@@ -1,0 +1,134 @@
+﻿@model olightvn.Models.CartModel
+@Scripts.Render("~/bundles/jqueryval")
+
+<h2>Giỏ hàng</h2>
+<span id="step-info"></span>
+<table class="table step1">
+    <thead class="thead-inverse">
+        <tr>
+            <th></th>
+            <th>Hình</th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Giá
+            </th>
+            <th class="w-5">Xóa</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="data in items.data.carts">
+            <td class="text-center">{{$index + 1}}</td>
+            <td>
+                <a href="/#/lv/detail/{{data.ProId}}/{{data.Title}}">
+                    <img ng-src="@WebConfigurations.ThumbPath{{data.Image}}" class="thumb" ng-hide="data.Image==null" />
+                    <img ng-src="@WebConfigurations.ThumbPathDefault" class="thumb" ng-show="data.Image==null" />
+                </a>
+            </td>
+            <td>
+                <span class="hidden">{{data.ProId}}</span>
+                <a href="/#/lv/detail/{{data.ProId}}/{{data.Title}}">
+                    {{data.ProName}}
+                </a>
+            </td>
+            <td class="text-right">
+                <input class="input-small" type="text" ng-model="data.Quantity" ng-keyup="updatCart($index,data.Quantity)" /><br />
+                {{data.Price | currency:"":0}} VNĐ
+            </td>
+            <td class="text-center">
+                <a class="icon-delete" ng-click="deteteItem(data.ProId);"></a>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right"><b>Tổng cộng</b></td>
+            <td class="text-right"><b>{{items.data.carts | totalSumPriceQty: 'Quantity':'Price' | currency:"":0}} VNĐ</b></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+
+<div class="step1 text-center">
+    <button class="btn btn-default" ng-click="goToStep(2)">Tiếp <span class="glyphicon glyphicon-menu-right"></span></button>
+</div>
+@using (Html.BeginForm("", "", FormMethod.Get, new { enctype = "multipart/form-data", @id = "formAdd" }))
+{
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+
+            <ol class="step2">
+                <li>
+                    <div class="form-elem floatl">
+                        <label class="floatl-label">Người nhận</label>
+                        @Html.TextBoxFor(m => m.YourName, new
+           {
+               @ng_model = "items.data.yourName",
+               @class = "floatl-input",
+               @placeholder = "Người nhận",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "    this.placeholder = 'Người nhận'"
+           })
+                        @Html.ValidationMessageFor(b => b.YourName)
+                    </div>
+                </li>
+                <li>
+                    <div class="form-elem floatl">
+                        <label class="floatl-label">Địa chỉ</label>
+                        <input type="text" ng-model="items.data.yourAddress" class="floatl-input" placeholder="Địa chỉ"
+                               onfocus="this.placeholder = ''" onblur="this.placeholder = 'Địa chỉ'">
+                    </div>
+                </li>
+                <li>
+                    <div class="form-elem floatl">
+                        <label class="floatl-label">Điện thoại</label>
+                        @Html.TextBoxFor(m => m.YourPhone, new
+           {
+               @ng_model = "items.data.yourPhone",
+               @class = "floatl-input",
+               @placeholder = "Điện thoại",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "    this.placeholder = 'Điện thoại'"
+           })
+                        @Html.ValidationMessageFor(m => m.YourPhone)
+                    </div>
+                </li>
+                <li>
+                    <div class="form-elem floatl">
+                        <label class="floatl-label">Email</label>
+                        @Html.TextBoxFor(m => m.YourEmail, new
+           {
+               @ng_model = "items.data.yourEmail",
+               @class = "floatl-input",
+               @placeholder = "Email",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "    this.placeholder = 'Email'"
+           })
+                        @Html.ValidationMessageFor(m => m.YourEmail)
+                    </div>
+                </li>
+            </ol>
+            <br />
+            <div class="step2 text-center">
+                <span class="btn btn-default" ng-click="goToStep(1)"><span class="glyphicon glyphicon-menu-left"></span> quay lại</span>
+                <span class="btn btn-default" ng-click="doSubmit();"><span class="glyphicon glyphicon-send"></span> hoàn tất</span>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    setTimeout(function () {
+        $(".floatl-input").each(function () {
+            if ($(this).val().length > 0)
+                $(this).parents(".floatl").addClass("floatl-active");
+        });
+    }, 100);
+    $(".floatl-input").focusin(function () {
+        $(this).parents(".floatl").addClass("floatl-active");
+    });
+    $(".floatl-input").focusout(function () {
+        if ($(this).val().length == 0)
+            $(this).parents(".floatl").removeClass("floatl-active");
+    })
+</script>

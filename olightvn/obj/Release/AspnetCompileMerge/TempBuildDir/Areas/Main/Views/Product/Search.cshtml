@@ -1,0 +1,11 @@
+﻿
+<div class="row">
+    <div class="col-xs-12">
+        <div class="title">
+            <h2>Kết quả tìm kiếm: {{items.value}}</h2>
+        </div>
+        <em class="label-small" ng-hide="items.data.length==0">{{items.data.length}} kết quả được tìm thấy</em>
+        @Html.PartialCustom("~/Areas/Main/Views/Shared/_ListProducts.cshtml")
+        @Html.Partial("_paging")
+    </div>
+</div>

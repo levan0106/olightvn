@@ -1,0 +1,180 @@
+﻿@section MetaContent
+{
+    <meta name="title" property="og:title" content="DESCRIPTION_VALUE" />
+}
+<div>
+    <div class="row">
+        <div class="col-xs-7">
+            <div class="lv-slider" ng-swipe-right="swipeRight()" ng-swipe-left="swipeLeft()">
+
+                <img ng-src="@WebConfigurations.ThumbPathDefault" class="thumb-img" ng-show="images.length == 0" />
+                <div class="hide" ng-hide="images.length == 0">
+                    <div class="slider" ng-repeat=" image in images">
+                        <img ng-src="@WebConfigurations.ImageFullPath{{image.Name}}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="title">
+                <h2> {{data.Name}}</h2>
+
+                <span>{{data.CreateDTS | myDate }}</span>
+
+                - <span class="account-title">{{user.UserName}}</span>
+                <div class="hashtag">
+                    <span ng-repeat="tag in hashtags">
+                        <a ng-click="searchByHashtag('#'+tag.Name)">#{{tag.Name}}</a>
+                    </span>
+                </div>
+            </div>
+            <div class="price">
+                <div ng-hide="data.Quantity == 0">
+                    <span class="large">{{data.Price| currency:"":0}} VND</span><span ng-show="data.Unit.length > 0"> / {{data.Unit}}</span>
+                </div>
+                    <span ng-show="data.Quantity == 0" class="error">Hết hàng</span>
+                </div>
+            <div class="price">
+                <label>Cọc:</label>
+                <span>{{data.Deposit| currency:"":0}} VND</span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 btn-order">
+                    <div class="w-30 pull-left">
+                        <span ng-class="{'disabled':data.Quantity == 0}" class="w-100 btn btn-call"
+                              ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price)">
+                            Giữ chỗ
+                        </span>
+
+                    </div>
+                    <div class="w-40 pull-left">
+                        <span ng-class="{'disabled':data.Quantity == 0}" class="w-100 btn btn-add-market" ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price,true)">Thuê ngay</span>
+                    </div>
+                    <div class="w-30 pull-left ">
+                        <a class=" w-100 btn btn-call" ng-hide="isMobile()" ng-click="alert('{{user.PhoneNumber}}')">{{user.PhoneNumber}}</a>
+                        <a class=" w-100 btn btn-call" href="tel:{{user.PhoneNumber}}" ng-show="isMobile()"> Gọi điện</a>
+
+                    </div>
+                </div>
+            </div>
+            <table class="table-bordered w-100 margin-top">
+                <tbody>
+                    <tr>
+                        <td>Danh mục</td>
+                        <td class="text-right"><a href="#/cat/{{data.CatId}}/{{data.CategoryName}}">{{data.CategoryName}}</a> </td>
+                    </tr>
+                    <tr>
+                        <td class="w-50">Vùng</td>
+                        <td class="text-right">{{data.LocationName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-50">ĐC cho thuê</td>
+                        <td class="text-right">{{user.Address}}</td>
+                    </tr>
+                    <tr>
+                        <td class="w-50">Tình trạng</td>
+                        <td class="text-right">{{data.ProductStatus}}%</td>
+                    </tr>
+                    <tr>
+                        <td class="w-50">Giao hàng</td>
+                        <td class="text-right">{{data.Shipping | convertTrueFalse:'Có':'Không'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="title">
+                <h2>Chia sẻ</h2>
+            </div>
+            <table class="tbl-share">
+                <tr>
+                    <td>
+                        <div ng-controller="fbCtrl">
+                            <div class="btn-fb-share">
+                                <a class="fb-share" ng-click="share(data,'@WebConfigurations.ThumbPath')">
+                                    <span class="_49vg">
+                                        <img class="_1pbs inlineBlock img" src="https://www.facebook.com/rsrc.php/v3/yq/r/5nnSiJQxbBq.png" alt="" width="16" height="16">
+                                    </span>
+                                    <span>chia sẻ</span>
+                                </a>
+                            </div>
+                        </div>
+
+
+                        <div id="fb-root"></div>
+                        <script>
+                            window.fbAsyncInit = function () {
+                                FB.init({
+                                    appId: '@GeneralFuncs.GetConfigValueByKey("fb_app_id")',// '721566404677863',
+                                    status: true,
+                                    cookie: true,
+                                    xfbml: true,
+                                    version: '@GeneralFuncs.GetConfigValueByKey("fb_app_version")'
+                                });
+                            };
+
+                            // Load the SDK Asynchronously
+                            (function (d) {
+                                var js, id = 'facebook-jssdk';
+                                if (d.getElementById(id)) { return; }
+                                js = d.createElement('script');
+                                js.id = id;
+                                js.async = true;
+                                js.src = document.location.protocol + "//connect.facebook.net/en_US/all.js";
+                                d.getElementsByTagName('head')[0].appendChild(js);
+                            }(document));
+
+                        </script>
+                        @*<img ng-src="/content/images/logo/facebook-logo.png" class="social-logo" />*@
+                    </td>
+                    <td><img ng-src="/content/images/logo/google-logo.png" class="social-logo" /></td>
+                    <td><img ng-src="/content/images/logo/twitter-logo.png" class="social-logo" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<br />
+<div class="title" ng-show="data.Description.length>0">
+    <h2>Chi tiết</h2>
+</div>
+<div ng-bind-html="data.Description | trust"></div>
+<br />
+
+<hr />
+<div ng-show="categories.length>0">
+    <div class="title">
+        <h3>Có thể bạn thích</h3>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 nav-slider-container">
+            <span class="nav-pre" ng-click="paging.previous()" ng-class="{'disabled hide':paging.currentPage == 1}">
+                <
+            </span>
+            <div class="row pro-view">
+                <div class="col-xs-3" ng-repeat="data in categories">
+                    <div class="row item-list">
+                        <div class="text-center thumb-img-slide">
+                            <a ng-href="#/detail/{{data.Id}}/{{data.Title}}">
+                                <img ng-src="@WebConfigurations.ThumbPath{{data.Thumbnail}}" />
+                            </a>
+                        </div>
+                        <div class="description">
+                            <a ng-href="#/detail/{{data.Id}}/{{data.Title}}">
+                                <label class="pro-name"> {{data.Name}}</label>
+                            </a>
+                            <br />
+                            {{data.Price| currency:"":0}} VND<br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <span class="nav-next" ng-click="paging.next()" ng-class="{'disabled hide':paging.currentPage == paging.totalPage}">
+                >
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+

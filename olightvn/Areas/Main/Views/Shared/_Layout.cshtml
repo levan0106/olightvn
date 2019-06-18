@@ -1,0 +1,122 @@
+﻿@{
+    String baseUrl = HttpContext.Current.Request.Url.AbsoluteUri;
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>@SessionManager.CurrentSite.Title</title>
+    <base href="/">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="@SessionManager.CurrentSite.Keyword" />
+    <meta name="description" content="@SessionManager.CurrentSite.Description" />
+    <meta name="fragment" content="/">
+    
+    <meta property="fb:app_id" content="@GeneralFuncs.GetConfigValueByKey("fb_app_id")">
+    <meta property="fb:pages" content="@GeneralFuncs.GetConfigValueByKey("fb_app_id")" />
+    <meta property="og:url" content="@SessionManager.CurrentSite.Url" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@SessionManager.CurrentSite.Title" />
+    <meta property="og:description" content="@SessionManager.CurrentSite.Description" />
+    <meta property="og:image" content="@SessionManager.CurrentSite.Image" />
+
+    @Helpers.RenderFavicon()
+
+    @*@RenderSection("AdditionalMeta", required: false)*@
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquerycookie")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
+    @Helpers.BrandingTheme()
+</head>
+<body>    
+    <script type="text/javascript">
+        var olightvn = jQuery.extend(olightvn, {
+            APIUrl: '',
+            mainId: 1,
+            //updateMeta: function (url, title, description, image) {
+            //    // remove tags from html string
+            //    var r = /<\/?[^>]+>/gi;
+            //    var description = description != null ? description.replace(r, "") : "";
+
+            //    document.title = title;
+            //},
+            thumbPath: '@WebConfigurations.ThumbPath',
+        });
+
+    </script>
+    <div ng-app="appMain">
+        <div ng-controller="headerController" class="header">
+            <div ng-show="visible">
+                <div class="navbar-inverse ">
+                    @Html.PartialCustom("~/Areas/Main/Views/Shared/_Header.cshtml")
+                </div>
+            </div>
+        </div>
+        <div class="parallax parallax-move" ng-controller="bannerController">
+
+            <div class="parallax-back">
+                @*<div class="slide" ng-style="{'background-image': 'url(@WebConfigurations.ThumbPath{{image.Name}}) 50% 50% / cover no-repeat;'}">
+                </div>*@
+                <div class="slide" style="background: url(@WebConfigurations.SliderPath{{image.Name}})">
+                    <img src="@WebConfigurations.SliderPath{{image.Name}}" style="visibility: hidden;" />
+                </div>
+                <div class="parallax-heading" ng-hide="image.Title == null && image.Path == null">
+                    <h3 class="parallax-title">{{image.Title}}</h3>
+                    <a ng-href="{{image.Path}}" class="btn btn-view-detail">Xem chi tiết ..</a>
+                </div>
+            </div>
+            <div class="empty-div">
+            </div>
+            <div class="parallax-base">
+                <div class="container">
+                    <div ng-controller="breadCrumbController">
+                        <div ng-show="visible">
+                            @Html.Partial("_BreadCrumb")
+                        </div>
+                    </div>
+                    <div class="main-content wrapper" ng-controller="mainController">
+                        <div>
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <footer class="text-center">
+                    @Html.PartialCustom("~/Areas/Main/Views/Shared/_Footer.cshtml")
+                </footer>
+            </div>
+        </div>
+    </div>
+    <img src="~/Content/images/scroll_to_top.png" id="sttop" />
+    <div id="loading"></div>
+    <div id="chat-root" data-href="" data-width="400" data-position-right="5" data-position-bottom="65"></div>
+    <script>
+    var lvchat = {
+        src: "http://localhost:29359/content/js/sdk.js",
+        signalJsScr: "http://localhost:29359/Scripts/jquery.signalR-2.1.2.min.js",
+        signalHub: "http://localhost:29359/signalr/hubs",
+        signalSdk: "http://localhost:29359/content/js/sdk.signal.js",
+        appId: 413594,
+        ver: "1.0",
+        user: "tungle2"
+    };
+
+    (function (d, s, id) {
+        var js;
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = lvchat.src;
+        js.async = false;
+        d.head.appendChild(js);
+    }(document, 'script', 'chat-jssdk'));
+
+
+    </script>
+    @RenderSection("scripts", required: false)
+    </body>
+    </html>

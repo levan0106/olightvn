@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" ng-controller="productManagementController">
+    <div class="col-xs-12">
+        <div class="row">
+
+            <div class="col-xs-5 title">
+                <h2>Danh sách sản phẩm</h2>
+            </div>
+            
+            <div class="col-xs-7 text-right">
+                <label>Filter:</label>
+                <select ng-model="selectCategory" ng-change="category.onChange()" class="form-control " style="width:auto; display:inline-block">
+                    <option value="0" ng-selected="selected">--All--</option>
+                    <option ng-repeat="x in category.data" value="{{x.Id}}">{{x.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-xs-12 text-right">
+                    <a href="/admin/product/Add" class="btn-default">Thêm sản phẩm</a>
+                </div>
+        </div>
+        @Html.PartialCustom("~/Areas/Admin/Views/Shared/_ListGrid.cshtml", "admin/product/edit")
+        @Html.PartialCustom("~/Areas/Admin/Views/Shared/_paging.cshtml")
+    </div>
+</div>

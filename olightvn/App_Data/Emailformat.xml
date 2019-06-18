@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MailFormats> 
+  <MailFormat SiteId="103">
+    <Subject>OlightVN - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+</MailFormats>

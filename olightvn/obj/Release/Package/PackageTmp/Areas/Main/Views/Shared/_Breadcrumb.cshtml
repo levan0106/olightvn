@@ -1,0 +1,13 @@
+﻿
+<div>
+    <div class="breadcrumbs display-desk">
+        <div class="wrapper">
+            @*<div class="shadow-top"></div>*@
+            <ol class="breadcrumb">
+                <li ng-hide="data.Id==1" ng-repeat="data in items.data"><a href="/{{data.URL}}">{{data.Name}}</a></li>
+                <li class="active" ng-repeat="data in items.data" ng-show="data.Id==1">{{data.Name}}</li>
+            </ol>
+            @*<div class="shadow-bottom"></div>*@
+        </div>
+    </div>
+</div>

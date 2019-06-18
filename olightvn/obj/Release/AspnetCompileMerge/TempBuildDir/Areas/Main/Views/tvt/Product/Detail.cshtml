@@ -1,0 +1,150 @@
+﻿@section MetaContent
+{
+    <meta name="title" property="og:title" content="DESCRIPTION_VALUE" />
+}
+@Scripts.Render("~/bundles/lvslider")
+@Styles.Render("~/Content/lvslider")
+<div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="lv-slider" ng-swipe-right="swipeRight()" ng-swipe-left="swipeLeft()">
+                <img data-src="@WebConfigurations.ThumbPathDefault" class="lazy thumb-img" ng-show="images.length == 0" />
+                <ul class="hide" ng-hide="images.length == 0">
+                    <li class="slider" ng-repeat=" image in images">
+                        @*<img class="lazy" data-src="{{image.Name}}" data-imagebase="@WebConfigurations.ImageFullPath" />*@
+                        <img ng-src="@WebConfigurations.ImageFullPath{{image.Name}}" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="product">
+                <div class="product-title">
+                    <h2> {{data.Name}}</h2>
+
+                    @*<span>{{data.CreateDTS | myDate }}</span>*@
+                </div>
+                <div class="">
+                    <div ng-hide="data.Quantity == 0">
+                        <span class="product-price">{{data.Price| currency:"":0}} ₫</span><span class="product-spec" ng-show="data.Unit.length > 0"> / {{data.Unit}}</span>
+                        <p class="product-spec">
+                            <em>
+                                Hàng đang có sẵn, xin đặt hàng hoặc gọi để được giao
+                            </em>
+                        </p>
+                    </div>
+                    <span ng-show="data.Quantity == 0" class="error">Hết hàng</span>
+                </div>
+            </div>
+            @if (GeneralFuncs.GetSettingByKey("Facebook") == "true")
+            {
+                <div ng-controller="fbCtrl">
+                    <div class="btn-fb-share">
+                        <a class="fb-share" ng-click="share(data,'@WebConfigurations.ThumbPath')">
+                            <span class="_49vg">
+                                <img class="_1pbs inlineBlock img" src="https://www.facebook.com/rsrc.php/v3/yq/r/5nnSiJQxbBq.png" alt="" width="16" height="16">
+                            </span>
+                            <span>chia sẻ</span>
+                        </a>
+                    </div>
+                </div>
+            }
+            @if (GeneralFuncs.GetSettingByKey("ShowCart") == "true")
+                {
+            <div class="row">
+                <div class="col-xs-offset-3 col-xs-6 btn-order">
+                    <div class="w-50 pull-left">
+                        <span ng-class="{'disabled':data.Quantity == 0}" class="w-100 btn btn-call"
+                              ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price)">
+                            <span class="glyphicon glyphicon-plus"></span> Thêm vào giỏ
+                        </span>
+
+                    </div>
+                    <div class="w-50 pull-left">
+                        <span ng-class="{'disabled':data.Quantity == 0}" class="w-100 btn btn-add-market"
+                              ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price,true)">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Mua ngay
+                        </span>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+<br />
+<div ng-hide="data.Description.length == 0" class="product-desc fold">
+    <div class="product-heading collapsed" data-toggle="collapse" data-target="#uiDescription">
+        <h3>THÔNG TIN THÊM VỀ  {{data.Name}}</h3>
+    </div>
+    <div id="uiDescription" class="collapse" >
+        <div class="description"  ng-bind-html="data.Description | trust"></div>
+        <div class="description-end" data-toggle="collapse" data-target="#uiDescription">
+            <span class="glyphicon glyphicon-chevron-down icon-down"></span>
+            <span class="glyphicon glyphicon-chevron-up icon-up"></span>
+        </div>
+    </div>
+</div>
+
+<div class="social-sharing product" ng-hide="hashtags.length == 0">
+    @*<span class="label-small">
+            <em>
+                Tìm kiếm theo san pham lien quan
+            </em>
+        </span>*@
+    <ul class="tags">
+        <li ng-repeat="tag in hashtags">
+            <a class="tag" ng-click="searchByHashtag('#'+tag.Name)">{{tag.Name}}</a>
+        </li>
+    </ul>
+</div>
+    <div ng-show="categories.length>0">
+        <div class="title">
+            <h2>Có thể bạn thích</h2>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 nav-slider-container">
+                <span class="nav-pre" ng-click="paging.previous()" ng-class="{'disabled hide':paging.currentPage == 1}">
+                    <
+                </span>
+                <div class="row product-view">
+                    <div class="col-xs-3" ng-repeat="data in categories">
+                        <div class="row item-list">
+                            <div class="text-center thumb-img-slide">
+                                <a ng-href="/#/lv/detail/{{data.Id}}/{{data.Title}}">
+                                    <img class="lazy" data-src="{{data.Thumbnail}}" data-imagebase="@WebConfigurations.ThumbPath" />
+                                </a>
+                                <span class="product-price-point">
+                                    <span class="product-price">
+                                        <span class="money">
+                                            {{data.Price| currency:"":0}} ₫
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="product-list">
+                                <h4 class="product-title">
+                                    <a ng-href="/#/lv/detail/{{data.Id}}/{{data.Title}}">
+                                        {{data.Name}}
+                                    </a>
+                                </h4>
+                                <a ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price)">
+                                    <span class="product-spec">
+                                        {{data.Unit}}
+                                        @if (GeneralFuncs.GetSettingByKey("ShowCart") == "true")
+                                        {
+                                          <span class="glyphicon glyphicon-shopping-cart shopping-cart"></span>
+                                        }
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="nav-next" ng-click="paging.next()" ng-class="{'disabled hide':paging.currentPage == paging.totalPage}">
+                    >
+                </span>
+            </div>
+        </div>
+    </div>
+

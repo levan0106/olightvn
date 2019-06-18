@@ -1,0 +1,48 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title - @SessionManager.CurrentSite.Name</title>
+    @Styles.Render("~/Content/jqueryextend/css")
+    @Styles.Render("~/Content/admin/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquerycookie")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/jqueryextend")
+    @Scripts.Render("~/bundles/jqueryval")
+    <base href="/">
+</head>
+<body>
+    <script type="text/javascript">
+        var olightvn = jQuery.extend(olightvn, {
+            APIUrl: '',
+            mainId: 1
+        });
+
+    </script>
+    <div ng-app="appMain">
+        <div ng-controller="headerController">
+            <div ng-show="visible">
+                <div class="navbar-inverse ">
+                    @Html.Partial("_Header")
+                </div>
+            </div>
+        </div>
+        <div class="main-content wrapper" ng-controller="mainController">
+            @RenderBody()
+        </div>
+        <hr />
+        <footer class="text-left">
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
+    <div id="loading"></div>
+    <iframe height="40" width="220" src="keepsessionalive.aspx" frameborder="0" />
+    @RenderSection("scripts", required: false)
+</body>
+</html>

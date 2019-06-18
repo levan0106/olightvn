@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row" ng-controller="adminManagementController">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-6 title">
+                <h2>Danh sách user</h2>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a href="/admin/user/add" class="btn-default">Thêm mới</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th class="w-5">STT</th>
+                    <th class="w-10">Avatar</th>
+                    <th class="w-30">
+                        Tên
+                    </th>
+                    <th class="w-40 desktop">
+                        Email
+                    </th>
+                    <th class="w-15">
+                        Trạng thái
+                    </th>
+                    <th class="w-5"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="data in items.data">
+                    <td class="text-center">{{$index + 1}}</td>
+                    <td>
+                        <a href="/admin/user/add/{{data.UserName}}">
+                            <img ng-src="@WebConfigurations.ThumbPath {{data.Thumbnail}}" class="thumb" ng-hide="data.Thumbnail==null" />
+                            <img ng-src="@WebConfigurations.ThumbPathDefault" class="thumb" ng-show="data.Thumbnail==null" />
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/admin/user/add/{{data.UserName}}">
+                            {{data.UserName}}
+                        </a>
+                    </td>
+                    <td class="desktop">
+                        {{data.Email}}
+                    </td>
+                    <td class="text-center">
+                        <span ng-class="data.ActiveStatus == 1?'icon-active':'icon-inactive'"></span>
+                    </td>
+                    <td class="text-center">
+                        <a class="icon-delete" ng-click="doDelete(data.UserName);"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        @Html.Partial("_paging")
+    </div>
+</div>
+

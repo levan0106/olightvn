@@ -1,0 +1,13 @@
+﻿<div class="pagingNav" ng-hide="paging.totalPage==0">
+    <div>
+        <span class="pageNavHeader">Trang: {{paging.currentPage}}/{{paging.totalPage}}</span>
+        <a ng-click="paging.previous()" ng-class="{'disabled':paging.currentPage == 1}">Previous</a>
+        <a ng-repeat="n in paging.range" ng-click="paging.goTo(n)" ng-class="{'currentPage':n == paging.currentPage}">
+            {{n}}
+        </a>
+        <a ng-click="paging.next()" ng-class="{'disabled':paging.currentPage == paging.totalPage}">Next</a>
+    </div>
+</div>
+<div class="pagingNav" ng-show="paging.totalPage==0">
+    Không tìm thấy dữ liệu
+</div>

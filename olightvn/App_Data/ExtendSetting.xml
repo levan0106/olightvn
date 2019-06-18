@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<settings>
+<!--olightvn.com-->
+ <setting SiteId="103">
+    <extend key="ImageThumbPath" value="/Images/thumb/olightvn/"/>
+    <extend key="BannerPath" value="/Images/banner/olightvn/"/>
+    <extend key="ImageSlidePath" value="/Images/slider/olightvn/"/>
+    <extend key="ImageFullPath" value="/Images/full/olightvn/"/>
+    <extend key="ImageFullSize" value="1005,450"/>
+    <extend key="ImageThumbSize" value="448,320"/>
+    <extend key="ImageSlideSize" value="1005,900"/>
+    <extend key="DefaultPageSize" value="2"/>
+    <extend key="SearchPageSize" value="2"/>
+    <extend key="KeySecure" value="abcdre"/>
+    <extend key="Facebook" value="true"/>
+    <extend key="ShowQuantity" value="true"/>
+    <extend key="ShowProductType" value="true"/>
+    <!--<extend key="Signature" value="01674054619"/>-->
+    <extend key="ShowBrand" value="true"/>
+    <extend key="ShowCart" value="true"/>
+    <extend key="DefaultCollapse" value="true"/>
+    <extend key="URLFormat" value="/detail/(.*)/" />
+  </setting>
+</settings>

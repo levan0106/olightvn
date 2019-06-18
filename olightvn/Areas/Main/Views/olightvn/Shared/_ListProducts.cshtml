@@ -1,0 +1,50 @@
+﻿@model string
+<div class="row pro-view">
+    <div class="col-xs-12" ng-show="items.data.length == 0">
+        Không có sản phẩm
+    </div>
+    <div class="col-xs-3" ng-hide="items.data.length == 0" ng-repeat=" data in items.data" ng-if="data.CatId == cat.Id || cat == null || cat.IdChilds.indexOf(data.CatId + ',') > -1">
+        <div class=" row product-list">
+            <div class="thumb-img">
+                <span class=" @(Model == "newItems" ? "icon-new" : "") "></span>
+                <a ng-href="/#/lv/detail/{{data.Id}}/{{data.Title}}">
+                    <img class="lazy" data-src="{{data.Thumbnail}}"
+                         data-imagebase="@WebConfigurations.ThumbPath"
+                         ng-hide="data.Thumbnail==null" />
+                    <img class="lazy" data-src="image.jpg"
+                         data-imagebase="@WebConfigurations.ThumbPath"
+                         ng-show="data.Thumbnail==null" />
+                </a>
+                <span class="product-price-point">
+                    <span class="product-price">
+                        <span class="money">
+                            {{data.Price| currency:"":0}} ₫
+                        </span>
+                    </span>
+                </span>
+                <div class="hidden-info">
+                    <a ng-href="/#/lv/detail/{{data.Id}}/{{data.Title}}" class="view-detail">
+                        <span class="icon-view"><span class="glyphicon glyphicon-search"></span> xem chi tiết</span>
+                    </a>
+                </div>
+            </div>
+            <div class="product-list">
+                <h4 class="product-title">
+                    <a ng-href="/#/lv/detail/{{data.Id}}/{{data.Title}}">
+                        {{data.Name}}
+                    </a>
+                </h4>
+                <a ng-click="addToCart(data.Id,data.Thumbnail,data.Name,data.Title,1,data.Price)">
+                    <span class="product-spec">
+                        {{data.Unit}}
+                        @if (GeneralFuncs.GetSettingByKey("ShowCart") == "true")
+                        {
+                         <span>|</span> <span class="glyphicon glyphicon-shopping-cart shopping-cart"></span>
+                        }
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

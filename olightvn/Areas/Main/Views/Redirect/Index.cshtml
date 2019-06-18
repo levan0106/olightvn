@@ -1,0 +1,11 @@
+﻿@model string
+@{
+    //ViewBag.Title = "Trang chủ";
+    Layout = "~/Areas/Main/Views/Shared/_layout.cshtml";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.location.replace('@Model');
+
+    })
+</script>

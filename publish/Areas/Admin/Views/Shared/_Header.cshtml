@@ -1,0 +1,47 @@
+﻿
+<div class="content-header display-desk">
+    <div class="row wrapper">
+        <div class="col-xs-6 logo">
+            <a href="~/#/">
+                @Helpers.RenderLogo()
+            </a>
+        </div>
+        <div class="col-xs-5 text-right">
+            <div class="profile">
+                <p>
+                    Xin chào
+                    <a href="/admin/User/Profiles"><b>@User.Identity.Name</b></a>
+                    @Html.ActionLink("Thoát", "LogOut", "User")
+                </p>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content-menu">
+    <div class="wrapper">
+        <div class="navbar-fixed pos-rel">
+            <div class="navbar-header nnavbar navbar-inverse">
+                <div>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-brand">
+                        <a href="~/#/">
+                            @Helpers.RenderLogo("logo")
+                        </a>
+                    </div>
+                    <div class="mobile">
+                        <a href="/admin/user/logout" class="icon-user"></a>
+                        <span class="icon-search" onclick="return switchSearch()"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-collapse collapse navbar-inverse">
+                @Html.Partial("_SiteMap")
+            </div>
+        </div>
+    </div>
+</div>

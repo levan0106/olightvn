@@ -1,0 +1,201 @@
+﻿@model lefarm.Models.Contact
+
+@{
+    ViewBag.Title = "Thông tin liên hệ";
+    Layout = null;
+    var contact = new lefarm.Models.ContactUsModel();
+}
+@Scripts.Render("~/bundles/jqueryval")
+
+<div class="contact">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="title">
+                <h3>
+                    Thông tin liên hệ
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 contact-info">
+            <div class="widget">
+                <div class="container">
+                    <div class="widget-item">
+                        <ul class="widget-menu">
+                            <li><h4 class="widget-title">@Model.Name</h4></li>
+                            <li>
+                                <i class="fa fa-map-marker"></i><span>@Model.Address</span>
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i> @Model.Phone
+                            </li>
+                            @if (Model.Fax != "" && Model.Fax != "-")
+                            {
+                                <li><i class="fa fa-fax"></i> @Model.Fax</li>
+                            }
+                            <li>
+                                <i class="fa fa-envelope"></i> @Model.Email
+                            </li>
+                            @if (GeneralFuncs.GetSettingByKey("Facebook") == "true")
+                            {
+                            <li>
+                                <i class="fa fa-facebook"></i>
+                                <a ng-href="@Model.Facebook">
+                                    @Model.Facebook
+                                </a>
+                            </li>
+                            }
+                            <li>
+                                <i class="fa fa-weixin"></i><b>Zalo:</b> <span>@Model.Phone</span>
+                                <i class="fa fa-weixin"></i><b>Whatapp:</b> <span>@Model.Phone</span>
+                                <i class="fa fa-weixin"></i><b>Wechat:</b> <span>@Model.Phone</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div id="map"></div>*@
+    @Html.PartialCustom("~/Areas/Main/Views/Shared/_Map.cshtml", @Model, new ViewDataDictionary { { "height", 400 },{"id","idMapContactUs"} })
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+
+            <h4 class="title">Gửi email góp ý</h4>
+            @using (Html.BeginForm("SendEmail", "ContactUs", FormMethod.Post, new { @id = "uiFormSendEmail", enctype = "multipart/form-data" }))
+            {
+                <ol>
+                    <li>
+                        <div class="form-elem floatl">
+                            <label class="floatl-label">Tên: <span class="error">*</span></label>
+                            @Html.TextBoxFor(m => contact.Name, new
+           {
+               @class = "floatl-input",
+               @placeholder = "Tên",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "this.placeholder = 'Tên'"
+           })
+                            @Html.ValidationMessageFor(m => contact.Name)
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-elem floatl">
+                            <label class="floatl-label">Email: <span class="error">*</span></label>
+                            @Html.TextBoxFor(m => contact.Email, new
+           {
+               @class = "floatl-input",
+               @placeholder = "Email",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "this.placeholder = 'Email'"
+           })
+                            @Html.ValidationMessageFor(m => contact.Email)
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-elem floatl">
+                            <label class="floatl-label">Tiêu đề: <span class="error">*</span></label>
+                            @Html.TextBoxFor(m => contact.Subject, new
+           {
+               @class = "floatl-input",
+               @placeholder = "Tiêu đề",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "this.placeholder = 'Tiêu đề'"
+           })
+                            @Html.ValidationMessageFor(m => contact.Subject)
+                        </div>
+                    </li>
+                    <li>
+                        <div class="form-elem floatl">
+                            <label class="floatl-label">Nội dung: <span class="error">*</span></label>
+                            @Html.TextAreaFor(m => contact.Content, new
+           {
+               @class = "floatl-input",
+               @placeholder = "Nội dung",
+               @onfocus = "this.placeholder = ''",
+               @onblur = "this.placeholder = 'Nội dung'",
+               @style = "height:200px;"
+           })
+                            @Html.ValidationMessageFor(m => contact.Content)
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-center">
+                            <button class="btn btn-default" onclick="validateDatas();">
+                                <span class="glyphicon glyphicon-send"></span> Gửi email
+                            </button>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="error">*</span>: <i>bắt buộc nhập.</i>
+                        <br />
+                        <i>
+                            Cám ơn các bạn gửi mail góp ý. Chúng tôi sẽ xử lý và trả lời thư của
+                            các bạn trong trường hợp sớm nhất có thể. Xin chân thành cảm ơn!
+                        </i>
+                    </li>
+                </ol>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    setTimeout(function () {
+        $(".floatl-input").each(function () {
+            if ($(this).val().length > 0)
+                $(this).parents(".floatl").addClass("floatl-active");
+        });
+    }, 100);
+    $(".floatl-input").focusin(function () {
+        $(this).parents(".floatl").addClass("floatl-active");
+    });
+    $(".floatl-input").focusout(function () {
+        if ($(this).val().length == 0)
+            $(this).parents(".floatl").removeClass("floatl-active");
+    })
+    function validateDatas() {
+        if ($("#uiFormSendEmail").valid()) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @*var labelMap = '@Model.Map_Label';
+    var lat = '@Model.Map_Lat';
+    var lng = '@Model.Map_Lng';
+    var zoom = parseInt('@Model.Zoom');
+    function initMap() {
+        var uluru = { lat: 10.831219, lng: 106.621261 };
+        uluru = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: zoom,
+            center: uluru,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var labelIndex = 0;
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+            label: {
+                fontWeight: 'bold',
+                text: labelMap,
+                color: 'red'
+            },
+            icon: {
+                labelOrigin: new google.maps.Point(11, 50),
+                url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless.png',
+                size: new google.maps.Size(22, 40),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(11, 40),
+            },
+
+        });
+    }*@
+</script>
+@*<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFKXUXjVkObqSCnHSRY2KiL5QHk6NdGIU&callback=initMap">
+</script>*@

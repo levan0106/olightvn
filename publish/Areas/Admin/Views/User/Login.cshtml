@@ -1,0 +1,68 @@
+﻿@model lefarm.Models.LoginModel
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Đăng nhập - @SessionManager.CurrentSite.Name</title>
+        @Styles.Render("~/Content/Admin/css")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/js")
+        @Scripts.Render("~/bundles/jqueryval")
+</head>
+<body id="body-login">
+    <div class="display-table  login-container">
+        <div class="td-middle">
+
+            <div class="logo-login">
+                <span>@SessionManager.CurrentSite.Name</span>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @using (Html.BeginForm("Login", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "uiForm", enctype = "multipart/form-data" }))
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.ValidationSummary(true)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tên đăng nhập:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(m => m.UserName, new { @id = "uiUsername" })
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                            </tr>
+                            <tr>
+                                <td>Mật khẩu:</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Password, new { @id = "uiPassword", type = "password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="/Admin/User/ForgotPassword">Quên mật khẩu ?</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br />
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <input type="submit" name="submit" value="Đăng nhập" id="uibtnSubmit" class="btn" />
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

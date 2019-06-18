@@ -1,0 +1,15 @@
+﻿<p class="label-small">
+    <em>*Sold out: Hàng tạm hết trong ngày, đặt trước 1 hoặc 2 ngày.</em>
+</p>
+
+<div class="row" ng-controller="homeController">
+    <div class="col-xs-12" ng-repeat="cat in items.category">
+        <div class="title">
+            <h2>{{cat.Name}}</h2>
+        </div>
+        @Html.PartialCustom("~/Areas/Main/Views/Shared/_ListProducts.cshtml")
+        <div class="pull-right">
+            <a class="view-more" href="/#/cat/{{cat.Id}}/{{cat.NameUnSign}}"><b>Xem thêm..</b></a>
+        </div>
+    </div>
+</div>

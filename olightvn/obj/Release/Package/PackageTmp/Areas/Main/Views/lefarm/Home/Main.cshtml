@@ -1,0 +1,12 @@
+﻿
+<div class="row" ng-controller="homeController">
+    <div class="col-xs-12" ng-repeat="cat in items.category">
+        <div class="title">
+            <h1>{{cat.Name}}</h1>
+        </div>
+        @Html.PartialCustom("~/Areas/Main/Views/Shared/_ListProducts.cshtml")
+        <div class="pull-right">
+            <a class="view-more" href="/#/cat/{{cat.Id}}/{{cat.NameUnSign}}"><b>Xem thêm..</b></a>
+        </div>
+    </div>
+</div>

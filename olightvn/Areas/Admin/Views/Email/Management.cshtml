@@ -1,0 +1,53 @@
+﻿@model olightvn.Models.EmailModel
+@{
+    ViewBag.Title = "Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="title">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3>
+                Quản lý - Cập nhật: Email
+            </h3>
+        </div>
+        <div class="col-xs-2 text-right">
+            <a onclick="goBack()" class="btn-default">Quay lại</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        @using (Html.BeginForm("Management", "Email", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.Label("From")
+            @Html.TextBoxFor(b => b.From, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.From)
+
+            @Html.Label("To")
+            @Html.TextBoxFor(b => b.To, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.To)
+
+            @Html.Label("Password")
+            @Html.TextBoxFor(b => b.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Password)
+
+            @Html.Label("SMTPPort")
+            @Html.TextBoxFor(b => b.SMTPPort, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.SMTPPort)
+
+            @Html.Label("EnableSSL")
+            @Html.DropDownList("EnableSSL", new SelectList(new List<object> { new { Value = 0, Text = "Tắt" }, new { Value = 1, Text = "Kích hoạt" } }, "Value", "Text", 1)
+                    , new { @class = "form-control input-small" })
+            @Html.ValidationMessageFor(b => b.EnableSSL)
+
+
+            <div class="text-center">
+                <br />
+                <input type="submit" name="submit" value="Cập nhật" class="btn" />
+            </div>
+        }
+    </div>
+</div>
+

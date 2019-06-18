@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<connections>
+  <connection SiteId="103">
+    <connectionString name="DB" connectionString="Initial Catalog=olightvn;Data Source=localhost;User ID=sa;Password=123456;Connection Timeout=120;Persist Security Info=True"></connectionString>
+  </connection>
+  <connection SiteId="102">
+    <connectionString name="DB" connectionString="Initial Catalog=lefarm;Data Source=localhost;User ID=sa;Password=123456;Connection Timeout=120;Persist Security Info=True"></connectionString>
+  </connection>
+<connection SiteId="104">
+    <connectionString name="DB" connectionString="Initial Catalog=tvtcomvn;Data Source=localhost;User ID=sa;Password=123456;Connection Timeout=120;Persist Security Info=True"></connectionString>
+  </connection>
+</connections>

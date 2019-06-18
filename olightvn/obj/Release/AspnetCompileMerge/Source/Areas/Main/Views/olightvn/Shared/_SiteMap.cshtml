@@ -1,0 +1,44 @@
+﻿<style>
+    .no-touch .sitemap a:hover + .sitemap-desc {
+        display: block !important;
+    }
+    .sitemap .sitemap-desc {
+        display: none !important;
+        font-family: 'UTM Avo', Tahoma, Geneva, sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #ada2a4;
+        text-transform: none;
+        padding: 20px;
+        z-index: 999999;
+        position: absolute;
+        background: white;
+        width: 100%;
+        min-width: 400px;
+        border-radius: 0 0 5px 5px;
+        margin-top: 15px;
+    }
+     .sitemap img {
+        //width: 100px;
+        height: 60px;
+        margin:10px;
+    }
+</style>
+<ul id="uiSitemap" class="sitemap menu nav navbar-nav"></ul>
+<script>
+    $Ajax.Get("sitemap/getsitemap", null, function (result) {
+        jQuery.each(result, function (i, val) {
+            val.URL = val.URL.replace('#/', '#/lv/');
+            var html = "<li><a href='/" + val.URL + "' disabled='" + (val.URL == null ? "disabled" : "") + "' >" + val.Name + "</a>";
+            if (!(val.URL == "/#/" || val.URL == "/"))
+            {
+
+                html += "<div class='sitemap-desc text-center'><div><image src='@WebConfigurations.ThumbPath" + val.Thumbnail + "'/></div>";
+                html += "<h4 class='text-uppercase'>" + val.Name + "</h3>";
+                html += "<i >" + val.Description + "</i></div>";
+            }
+            html += "</li>";
+            $("#uiSitemap").append(html);
+        });
+    });
+</script>

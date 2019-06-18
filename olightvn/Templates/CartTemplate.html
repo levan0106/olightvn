@@ -1,0 +1,71 @@
+﻿
+<table style="text-align:center">
+    <colgroup>
+        <col width="20" />
+        <col width="105" />
+        <col width="300" />
+        <col width="100" />
+        <col width="100" />
+        <col width="100" />
+    </colgroup>
+    <thead class="thead-inverse">
+
+        <tr>
+            <td colspan="6">
+                <h3>Thông tin đơn đặt hàng</h3>
+            </td>
+        </tr>
+        <tr>
+            <th></th>
+            <th>Hình</th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>Số lượng</th>
+            <th>Thành tiền</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="data in items.data.carts" class="ng-scope">
+            <td class="text-center ng-binding">[STT]</td>
+            <td>
+                <img src="[Image]" style="width:100%;" />
+            </td>
+            <td>
+                [Name]
+            </td>
+            <td class="text-right ng-binding">
+                [Price] ₫
+            </td>
+            <td class="text-right ng-binding">
+                [Quantity]
+            </td>
+            <td class="text-center">
+                [Total] ₫
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right"><b>Tổng cộng</b></td>
+            <td class="text-right"><b>[PriceTotal] ₫</b></td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+<hr />
+<table>
+    <tr>
+        <td colspan="2">
+            <h3>Thông tin người nhận</h3>
+        </td>
+    </tr>
+    <tr><td>Người nhận</td><td>[ReceiverName]</td></tr>
+    <tr><td>Địa chỉ </td><td>[ReceiverAddress]</td></tr>
+    <tr><td>Điện thoại</td><td>[ReceiverPhone]</td></tr>
+    <tr><td>Email</td><td>[ReceiverEmail]</td></tr>
+</table>
+<h3>Đơn hàng đang được xử lý. Cảm ơn [ReceiverName] !</h3>

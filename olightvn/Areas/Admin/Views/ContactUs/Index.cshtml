@@ -1,0 +1,84 @@
+﻿@model olightvn.Models.Contact
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="title">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3>
+                Quản lý - Cập nhật: Thông tin liên hệ
+            </h3>
+        </div>
+        <div class="col-xs-2 text-right">
+            <a onclick="goBack()" class="btn-default">Quay lại</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8">
+        @using (Html.BeginForm("Index", "Contactus", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(h => h.ContactID)
+
+            @Html.Label("Tên")
+            @Html.TextBoxFor(b => b.Name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Name)
+
+            @Html.Label("Địa chỉ")
+            @Html.TextBoxFor(b => b.Address, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Address)
+
+            @Html.Label("HotLine")
+            @Html.TextBoxFor(b => b.Phone, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Phone)
+
+            @Html.Label("Fax")
+            @Html.TextBoxFor(b => b.Fax, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Fax)
+
+            @Html.Label("Email")
+            @Html.TextBoxFor(b => b.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Address)
+
+            @Html.Label("Facebook")
+            @Html.TextBoxFor(b => b.Facebook, new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.Facebook)
+
+            if (GeneralFuncs.CheckPermission("AdminAll"))
+            {
+                <hr />
+                <h3>Map Information</h3>
+                <hr />
+                @Html.Label("Label")
+                @Html.TextBoxFor(b => b.Map_Label, new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Map_Label)
+
+                @Html.Label("LAT")
+                @Html.TextBoxFor(b => b.Map_Lat, new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Map_Lat)
+
+                @Html.Label("LNG")
+                @Html.TextBoxFor(b => b.Map_Lng, new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Map_Lng)
+
+                @Html.Label("Zoom")
+                @Html.TextBoxFor(b => b.Zoom, new { @class = "form-control" })
+                @Html.ValidationMessageFor(b => b.Zoom)
+            }
+            else
+            {
+                @Html.HiddenFor(h => h.Map_Label)
+                @Html.HiddenFor(h => h.Map_Lat)
+                @Html.HiddenFor(h => h.Map_Lng)
+                @Html.HiddenFor(h => h.Zoom)
+            }
+
+            <div class="text-center">
+                <br />
+                <input type="submit" name="submit" value="Cập nhật" class="btn" />
+            </div>
+        }
+    </div>
+</div>

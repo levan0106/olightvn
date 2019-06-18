@@ -1,0 +1,71 @@
+﻿@model olightvn.Models.AddUserModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="title">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3>
+                Quản lý - Cập nhật: @Model.UserName
+            </h3>
+        </div>
+        <div class="col-xs-2 text-right">
+            <a onclick="goBack()" class="btn-default">Quay lại</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <span class="error">@TempData["UpdateStatus"]</span>
+        @using (Html.BeginForm("add", "user", FormMethod.Post, new { @id = "uiForm", enctype = "multipart/form-data" }))
+        {
+            @Html.ValidationSummary(true)
+            @Html.Label("Tên đăng nhập")
+            @Html.TextBoxFor(b => b.UserName, new { @class = "form-control" })
+            <p>
+                @Html.ValidationMessageFor(b => b.UserName)
+            </p>
+
+            @Html.Label("Email")
+            @Html.TextBoxFor(b => b.Email, new { @class = "form-control" })
+            <p>
+                @Html.ValidationMessageFor(b => b.Email)
+            </p>
+            <div>
+                @Html.CheckBoxFor(m => m.ChangePassword, new { @class = "", @onclick = "changePassword(this)" })
+                Đổi mật khẩu.
+            </div>
+            @Html.Label("Mật khẩu")
+            @Html.TextBoxFor(b => b.Password, new { @class = "form-control", type = "password", @disabled = "disabled" })
+            <p>
+                @Html.ValidationMessageFor(b => b.Password)
+            </p>
+            @Html.Label("Role")
+            @Html.DropDownListFor(m => m.Role, (SelectList)ViewBag.Roles, "-- Select --", new { @class = "form-control input-medium" })
+            <p></p>
+            @Html.Label("Trạng thái")
+            @Html.DropDownList("ActiveStatus", new SelectList(new List<object> { new { Value = 0, Text = "Tắt" }, new { Value = 1, Text = "Kích hoạt" } }, "Value", "Text", 1)
+                    , new { @class = "form-control input-small" })
+
+            <div class="text-center">
+                <br />
+                <input type="submit" name="submit" value="Cập nhật" class="btn" />
+            </div>
+        }
+    </div>
+</div>
+<script>
+    function changePassword(ele) {
+        var checked = $(ele).is(":checked");
+        $("#Password").prop("disabled", !checked);
+    }
+</script>
+
+
+
+
+

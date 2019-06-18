@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Management";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" ng-controller="categoryManagementController">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-6 title">
+                <h2>Danh sách danh mục</h2>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a href="/admin/category/add" class="btn-default">Thêm mới</a>
+            </div>
+        </div>
+        @Html.PartialCustom("~/Areas/Admin/Views/Shared/_ListGrid.cshtml", "admin/category/edit")
+        @Html.PartialCustom("~/Areas/Admin/Views/Shared/_paging.cshtml")
+    </div>
+</div>

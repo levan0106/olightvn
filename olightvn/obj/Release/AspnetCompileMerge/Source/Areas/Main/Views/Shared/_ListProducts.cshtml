@@ -1,0 +1,28 @@
+﻿@model string
+
+<div class="row pro-view">
+    <div class="col-xs-3" ng-repeat=" data in items.data" ng-if="data.CatId == cat.Id || cat == null || cat.IdChilds.indexOf(data.CatId + ',') > -1">
+        <div class=" row pro-list">
+            <div class="thumb-img">
+                <span class=" @(Model == "newItems" ? "icon-new" : "") "></span>
+                <a ng-href="#/detail/{{data.Id}}/{{data.Title}}">
+                    <img class="lazy" data-src="{{data.Thumbnail}}"
+                         data-imagebase="@WebConfigurations.ThumbPath"
+                         ng-hide="data.Thumbnail==null" />
+                    <img class="lazy" data-src="image.jpg"
+                         data-imagebase="@WebConfigurations.ThumbPath"
+                         ng-show="data.Thumbnail==null" />
+                </a>
+            </div>
+            <div class="description">
+                <a ng-href="#/detail/{{data.Id}}/{{data.Title}}">
+                    <h3 class="pro-name"> {{data.Name}}</h3>
+                </a>
+                <label class="price">{{data.Price| currency:"":0}} VND</label>
+                <br />
+                <span class="location">{{data.LocationName}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+

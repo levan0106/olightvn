@@ -1,0 +1,10 @@
+﻿
+<ul id="uiSitemap" class="menu nav navbar-nav"></ul>
+<script>
+    olightvn.Ajax.Get("admin/sitemap/getsitemap", null, function (result) {
+        jQuery.each(result, function (i, val) {
+            var html = "<li><a href='" + val.URL + "' disabled='" + (val.URL == null ? "disabled" : "") + "' >" + val.Name + "</a></li>";
+            $("#uiSitemap").append(html);
+        });
+    });
+</script>

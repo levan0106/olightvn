@@ -1,0 +1,68 @@
+﻿<footer id="footer" class="footer" ng-controller="footerController">
+    <div class="widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title">Liên hệ với chúng tôi</h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+                            <li class="widget-address"><i class="fa fa-map-marker"></i><span>{{data.Address}}</span></li>
+                            <li><i class="fa fa-phone"></i><span>{{data.Phone}}</span></li>
+                            <li ng-hide="data.Fax == '-' || data.Fax == '' "><i class="fa fa-fax"></i><span>{{data.Fax}}</span></li>
+                            <li><i class="fa fa-envelope"></i><span>{{data.Email}}</span></li>
+                            @if (GeneralFuncs.GetSettingByKey("Facebook") == "true")
+                            {
+                            <li><i class="fa fa-facebook"></i>
+                                <a ng-href="{{data.Facebook}}" target="_blank">
+                                    {{data.Facebook}}
+                                </a>
+                            </li>
+                            }
+                            <li><i class="fa fa-weixin"></i><b>Zalo:</b> <span>{{data.Phone}}</span></li>
+                            <li><i class="fa fa-weixin"></i><b>Whatapp:</b> <span>{{data.Phone}}</span> </li>
+                            <li><i class="fa fa-weixin"></i><b>Wechat:</b> <span>{{data.Phone}}</span></li>
+                    </div> <!-- End .widget-item -->
+                </div>
+                <div class="col-md-2 col-sm-6 autosize" ng-init="getMenu()">
+                    <div class="widget-item">
+                        <h4 class="widget-title">Thông tin</h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+                            <li ng-repeat="sitemap in sitemaps"><a ng-href="/{{sitemap.URL}}">{{sitemap.Name}}</a></li>
+                        </ul> <!-- End .widget-menu -->
+                    </div> <!-- End .widget-item -->
+                </div>
+                <div class="col-md-2 col-sm-6 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title">HỖ TRỢ </h4> <!-- End .widget-title -->
+                        <ul class="widget-menu">
+
+                            <li><a href="/#/huong-dan-mua-hang" title="Hướng dẫn mua hàng">Hướng dẫn mua hàng</a></li>
+
+
+                            <li><a href="/#/tai-khoan-giao-dich" title="Tài khoản giao dịch">Tài khoản giao dịch</a></li>
+
+
+                            <li><a href="/#/chinh-sach-van-chuyen" title="Chính sách vận chuyển">Chính sách vận chuyển</a></li>
+
+
+                        </ul> <!-- End .widget-menu -->
+                    </div> <!-- End .widget-item -->
+                </div>
+
+                <div class="col-md-4 col-sm-12 autosize">
+                    <div class="widget-item">
+                        <h4 class="widget-title">Bản đồ</h4> <!-- End .widget-title -->
+                        @Html.PartialCustom("~/Areas/Main/Views/Shared/_Map.cshtml", SessionManager.ContactInfo,
+                                 new ViewDataDictionary { { "height", 250 }, { "id", "idMapFooter" }, { "FromSource","footer" } })                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End .widget -->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <span>© Bản quyền thuộc về TVT.COM.VN | levan0106</span>
+        </div>
+    </div>
+</footer>

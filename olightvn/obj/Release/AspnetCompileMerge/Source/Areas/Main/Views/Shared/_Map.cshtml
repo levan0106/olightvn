@@ -1,0 +1,51 @@
+﻿@model lefarm.Models.Contact
+@{
+    var zoom = Model.Zoom;
+    if(ViewData["FromSource"]=="footer")
+    {
+        zoom = Model.Zoom - 1;                 
+    }
+}
+<style>
+    @("#"+ViewData["id"]) {
+        height: @(ViewData["height"]+"px");
+        width: 100%;
+    }
+</style>
+<div id="@ViewData["id"]" class="google-map"></div>
+<script type="text/javascript">
+    var labelMap = '@Model.Map_Label';
+    var lat = '@Model.Map_Lat';
+    var lng = '@Model.Map_Lng';
+    var zoom = parseInt('@zoom');
+    function initMap() {
+        var uluru = { lat: 10.831219, lng: 106.621261 };
+        uluru = { lat: parseFloat(lat), lng: parseFloat(lng) };
+        var map = new google.maps.Map(document.getElementById('@ViewData["id"]'), {
+            zoom: zoom,
+            center: uluru,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        var labelIndex = 0;
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+            label: {
+                fontWeight: 'bold',
+                text: labelMap,
+                color: 'red'
+            },
+            icon: {
+                labelOrigin: new google.maps.Point(11, 50),
+                url: 'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi-dotless.png',
+                size: new google.maps.Size(22, 40),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(11, 40),
+            },
+
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFKXUXjVkObqSCnHSRY2KiL5QHk6NdGIU&callback=initMap">
+</script>

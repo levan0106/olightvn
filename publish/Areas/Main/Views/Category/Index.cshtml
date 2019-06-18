@@ -1,0 +1,16 @@
+﻿
+<div class="row">
+    <div class="col-xs-12">
+        <div class="banner">
+            <img ng-src="@WebConfigurations.ImageFullPath{{cat.Thumbnail}}" />
+            <br />
+            <p class="label-medium text-center">{{cat.Description}}</p>
+        </div>
+        <div class="title">
+            <h2 ng-hide="cat.Id==0">{{cat.Name}}</h2>
+            <h2 ng-show="cat.Id == null || cat.Id==0">Sản phẩm mới</h2>
+        </div>
+        @Html.PartialCustom("~/Areas/Main/Views/Shared/_ListProducts.cshtml")
+        @Html.Partial("_paging")
+    </div>
+</div>

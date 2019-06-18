@@ -1,0 +1,101 @@
+﻿@model lefarm.Models.CategoryModel
+@{
+    
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="title">
+    <div class="row">
+        <div class="col-xs-10">
+            <h3>
+                Quản lý - Cập nhật: @Model.Name
+            </h3>
+        </div>
+        <div class="col-xs-2 text-right">
+            <a onclick="goBack()" class="btn-default">Quay lại</a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        @using (Html.BeginForm("Update", "category", FormMethod.Post, new { enctype = "multipart/form-data", @id = "formAdd" }))
+        {
+            @Html.HiddenFor(m => m.Id);
+            <span class="error">@TempData["result"]</span>
+            <ol>
+                <li>
+                    @Html.Label("Tên danh mục")
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-medium", maxlength = "70" })
+                    @Html.ValidationMessageFor(b => b.Name)
+                </li>
+                <li>
+                    @Html.Label("Danh mục cha")
+                    @Html.DropDownListFor(m => m.ParentId, (SelectList)ViewBag.Categories, "-- Không --", new { @class = "form-control input-medium" })
+                </li>
+                <li>
+                    @Html.Label("Hình đại diện (1022px - 335px)")
+                    <br />
+                    <div id="uiImages">
+                        <div class='img-list'>
+                            <img class="thumbnail selected" onclick='lefarm.file.deSelect(this)' id='@Model.Thumbnail' src='@(WebConfigurations.ThumbPath + Model.Thumbnail)' />
+                            <a onclick='lefarm.file.doDelete(this);'>x</a>
+                        </div>
+                        <input type="hidden" name="fileCollections" id="uifileBase64" />
+                    </div>
+                    <input type="file" name="file" id="uifile" style="width: 100%;" value="" />
+                </li>
+
+                <li>
+                    @Html.Label("Chú thích")
+                    @Html.TextAreaFor(b => b.Description, new { @class = "form-control input-medium", rows = 5, cols = 100 })
+                    @Html.ValidationMessageFor(b => b.Description)
+                </li>
+                <li>
+                    @Html.Label("Đặt làm menu")
+                    @Html.DropDownList("ShowMenu", new SelectList(new List<object> { new { Value = 0, Text = "Không" }, new { Value = 1, Text = "Có" } }, "Value", "Text", 1)
+                    , new { @class = "form-control input-small" })
+                </li>
+                <li>
+                    @Html.Label("Xuất hiện trang chủ")
+                    @Html.DropDownList("ShowHomePage", new SelectList(new List<object> { new { Value = 0, Text = "Không" }, new { Value = 1, Text = "Có" } }, "Value", "Text", 0)
+                    , new { @class = "form-control input-small" })
+                </li>
+                <li>
+                    @Html.Label("Trạng thái")
+                    @Html.DropDownList("ActiveStatus", new SelectList(new List<object> { new { Value = 0, Text = "Tắt" }, new { Value = 1, Text = "Kích hoạt" } }, "Value", "Text", 1)
+                    , new { @class = "form-control input-small" })
+                </li>
+            </ol>
+            <div class="text-center">
+                <br />
+                <input type="submit" name="submit" value="Cập nhật" class="btn" onclick="return validateDatas()" />
+                <a href="/category/management" class="btn-default">Bỏ qua</a>
+                <br />
+                <br />
+            </div>
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    //$(function () {
+    //    createEditor('vi', 'Description');
+    //});
+    $("#uifile").change(function () {
+        lefarm.file.readURL(this);
+    });
+    
+    function validateDatas() {
+        if ($("#formAdd").valid()) {
+            lefarm.file.getFileCollections();
+            return true;
+        }
+        else {
+            $(window).scrollTop(0);
+            return false;
+        }
+    }
+</script>
+

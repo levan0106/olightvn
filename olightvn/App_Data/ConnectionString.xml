@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<connections>
+  <connection SiteId="103">
+    <connectionString name="DB" connectionString="Initial Catalog=olightvn;Data Source=LEVAN-PC\EN2008R2;Integrated Security=SSPI;Connection Timeout=120;Persist Security Info=True"></connectionString>
+  </connection>
+</connections>

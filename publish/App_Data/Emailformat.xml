@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MailFormats>
+  <MailFormat SiteId="101">
+    <Subject>Led Pha VCD30 - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+  <MailFormat SiteId="100">
+    <Subject>Hang xach tay Anh Quoc - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+  <MailFormat SiteId="102">
+    <Subject>Thực phẩm LeFarm - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+  <MailFormat SiteId="103">
+    <Subject>OlightVN - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+  <MailFormat SiteId="104">
+    <Subject>TVT.COM.VN - [content]</Subject>
+    <Body>
+      <![CDATA[ 
+
+     <BR></BR><Br>[content]<Br>
+
+     ]]>
+    </Body>
+  </MailFormat>
+</MailFormats>
